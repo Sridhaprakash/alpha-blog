@@ -1,0 +1,7 @@
+<h1> <strong>Showing User details <h1>
+<p><strong>Title: </strong><%= @user.username %></p>
+<p><strong>Description: </strong><%= @user.email %></p>
+<% if logged_in? && @user == current_user %>
+    <p><%= link_to 'Edit profile', edit_user_path(@user) %></p>
+<% end %>
+    

@@ -15,5 +15,7 @@
       letter-spacing: -1px;
       font-weight: bold;
   }
-
- 
+  #sticky-footer {
+    flex-shrink: none; 
+  }
+  

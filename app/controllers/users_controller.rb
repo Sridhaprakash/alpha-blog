@@ -4,8 +4,7 @@ class UsersController < ApplicationController
     before_action :require_same_user, only: [:edit, :update, :destroy]
   
     def show
-        @articles=@user.articles
-        
+        @articles=@user.articles        
     end
 
     def index

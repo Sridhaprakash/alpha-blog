@@ -1,0 +1,8 @@
+<h1> <strong>CATEGORY:<h1>
+<p><%= @category.name %></p>
+<% if logged_in? && current_user.admin? %>
+    <p><%= link_to 'Edit category name', edit_category_path(@category), {style: 'font-size: 20pt;  color: blue' } %></p>              
+    <%= render 'articles/article' %>
+<% end %>
+
+    

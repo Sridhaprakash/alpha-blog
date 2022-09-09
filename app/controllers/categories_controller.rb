@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
     before_action :require_admin, except: [:show, :index]
+    before_action :set_category, only: [:show, :edit, :update, :destroy]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
     def new
         @category = Category.new
     end
@@ -15,16 +17,14 @@ class CategoriesController < ApplicationController
     end
     
     def show
-        @category = Category.find(params[:id])
         @articles = @category.articles
     end
 
     def edit
-        @category = Category.find(params[:id])
+
     end
 
     def update
-        @category = Category.find(params[:id])
         if @category.update(category_params)
             flash[:notice] = "Category name updated successfully"
             redirect_to @category
@@ -35,6 +35,11 @@ class CategoriesController < ApplicationController
 
     def index
         @categories = Category.all
+    end
+   
+    def destroy
+        @category.destroy
+        redirect_to @category
     end
 
     private
@@ -47,6 +52,17 @@ class CategoriesController < ApplicationController
         if !(logged_in? && current_user.admin?)
             flash[:alert] = "Only admin can perform that action"
             redirect_to categories_path
+        end
+    end
+
+    def set_category
+        @category = Category.find(params[:id])
+    end
+    
+    def require_same_user
+        if current_user != @user && !current_user.admin?
+          flash[:alert] = "You can only edit or delete your own account"
+          redirect_to @category
         end
     end
 
